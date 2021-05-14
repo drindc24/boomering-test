@@ -1,33 +1,4 @@
-<h1>Patients List</h1>
-
-<div class="media">
-  <div class="media-body">
-    <table class="table table-hover">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Birthdate</th>
-        <th>Number</th>
-        <th>Description</th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <% @patients.each do |patient| %>
-        <tr>
-          <td><%= patient.name %></td>
-          <td><%= patient.date %></td>
-          <td><%= patient.number %></td>
-          <td><%= patient.description %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
+<%= javascript_pack_tag 'patients' %>
 
 <br>
 
