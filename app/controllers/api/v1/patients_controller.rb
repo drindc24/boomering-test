@@ -4,6 +4,8 @@ module Api
       def index
         if params[:order_by] && params[:order]
           @patients = Patient.order("patients.#{params[:order_by]} #{params[:order]}")
+        elsif params[:search]
+          @patients = Patient.search(params[:search])
         else
           @patients = Patient.all
         end

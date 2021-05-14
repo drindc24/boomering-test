@@ -12,8 +12,6 @@ const Patients = props => {
   const orderBy = (e) => {
     e.preventDefault();
     toggleOrder();
-    console.log(`ORDER: ${order}`)
-    console.log(`CLICKED: ${e.currentTarget.textContent.toLowerCase()}`)
     const orderByParam = e.currentTarget.textContent.toLowerCase()
     fetch(`/api/v1/patients?order=${order}&order_by=${orderByParam}`)
       .then(response => response.json())
@@ -31,9 +29,23 @@ const Patients = props => {
       .then((data) => setPatients(data))
   }, [])
 
+  const formSubmit = (e) => {
+    e.preventDefault()
+    const searchString = e.target.searchName.value
+    fetch(`/api/v1/patients?search=${searchString}`)
+      .then(response => response.json())
+      .then((data) => setPatients(data))
+  }
+
   return (
     <div>
       <h1>Patients List</h1>
+      <form onSubmit={formSubmit}>
+        <input type="text" name="searchName" placeholder="Search" />
+        <button type="submit">
+          Search
+        </button>
+      </form>
       <div className='media'>
         <div className='media-body'>
           <table className="table table-hover">
