@@ -30,3 +30,9 @@
 </div>
 
 <br>
+
+<h3>Import Patients</h3>
+<%= form_tag import_patients_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Upload Patients" %>
+<% end %>
