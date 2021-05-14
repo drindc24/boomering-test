@@ -8,12 +8,29 @@ import PropTypes from 'prop-types'
 
 const Patients = props => {
   const [patients, setPatients] = useState([])
+  const [order, setOrder] = useState('desc')
+  const orderBy = (e) => {
+    e.preventDefault();
+    toggleOrder();
+    console.log(`ORDER: ${order}`)
+    console.log(`CLICKED: ${e.currentTarget.textContent.toLowerCase()}`)
+    const orderByParam = e.currentTarget.textContent.toLowerCase()
+    fetch(`/api/v1/patients?order=${order}&order_by=${orderByParam}`)
+      .then(response => response.json())
+      .then((data) => setPatients(data))
+  }
+
+  const toggleOrder = () => {
+    let currentOrder = order === 'desc' ? 'asc' : 'desc'
+    setOrder(currentOrder)
+  }
 
   useEffect(() => {
     fetch('/api/v1/patients')
       .then(response => response.json())
       .then((data) => setPatients(data))
   }, [])
+
   return (
     <div>
       <h1>Patients List</h1>
@@ -22,10 +39,10 @@ const Patients = props => {
           <table className="table table-hover">
             <thead>
             <tr>
-              <th>Name</th>
-              <th>Birthdate</th>
-              <th>Number</th>
-              <th>Description</th>
+              <th><a href='#' onClick={e => orderBy(e)}>Name</a></th>
+              <th><a href='#' onClick={e => orderBy(e)}>Date</a></th>
+              <th><a href='#' onClick={e => orderBy(e)}>Number</a></th>
+              <th><a href='#' onClick={e => orderBy(e)}>Description</a></th>
               <th></th>
               <th></th>
               <th></th>
